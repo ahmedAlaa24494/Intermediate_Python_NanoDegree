@@ -12,26 +12,46 @@
 ## `Lesson 3` 
 New Terms In This Lesson
 Term	Definition
-Argument	An object (or a name referring to an object) that is supplied to a function when the function is invoked.
-Decorator	A high-level function that traditionally transforms an input function into a slightly-modified output function with desired decorated behavior.
-@decorator	Special syntax to apply a decorator to an immediately-subsequent function definition.
-filter	A built-in function that filters an iterable by keeping only elements that successfully pass a predicate function.
-The fn.__code__ attribute	An attribute of function objects that represents the function's code object.
-The fn.__doc__ attribute	An attribute of function objects that represents the function's documentation string.
-The fn.__name__ attribute	An attribute of function objects that represents the function's name.
-Function Objects	A type of object in Python representing a callable function.
-Functional Implementation	The details of how a function transforms its inputs to outputs
-Functional Interface	A function's inputs and outputs, viewed collectively as a contract between the function and the outside world
-Functional Programming	A programming paradigm focusing on higher-order functions and composition as fundamental tools for solving problems.
-Generator Expression	A syntactical shortcut to create on-the-fly iterators with simple implementations.
-Generator Function	A special type of function containing the keyword yield that can produce a stream of values when called.
-globals()	A Python builtin function call that returns a dictionary representation of the global namespace.
-Iterable	An object that can be iterated over.
-Iterator	An object representing a stream of data that can yield successive values.
-Keyword Argument	An argument that is supplied to a function call by keyword, not by position.
-Keyword-Only Parameters	A subcategory of optional parameters defined by a function signature that can only be overridden by an argument supplied by keyword.
-lambda	An anonymous function used to define simple callables.
-locals()	A Python builtin function call that returns a dictionary representation of the local namespace.
+
+`Argument` 	An object (or a name referring to an object) that is supplied to a function when the function is invoked. 
+---
+`Decorator`	A high-level function that traditionally transforms an input function into a slightly-modified output function with desired decorated behavior.
+---
+`@decorator`	Special syntax to apply a decorator to an immediately-subsequent function definition.
+---
+`filter`	A built-in function that filters an iterable by keeping only elements that successfully pass a predicate function.
+---
+The `fn.__code__` attribute	An attribute of function objects that represents the function's code object.
+---
+The `fn.__doc__` attribute	An attribute of function objects that represents the function's documentation string.
+---
+The `fn.__name__` attribute	An attribute of function objects that represents the function's name.
+---
+`Function Objects`	A type of object in Python representing a callable function.
+---
+`Functional Implementation`	The details of how a function transforms its inputs to outputs
+---
+`Functional Interface`	A function's inputs and outputs, viewed collectively as a contract between the function and the outside world
+---
+`Functional Programming`	A programming paradigm focusing on higher-order functions and composition as fundamental tools for solving problems.
+---
+`Generator Expression`(`yeild`)	A syntactical shortcut to create on-the-fly iterators with simple implementations.
+---
+`Generator Function`	A special type of function containing the keyword yield that can produce a stream of values when called.
+---
+`globals()`	A Python builtin function call that returns a dictionary representation of the global namespace.
+---
+`Iterable`	An object that can be iterated over.
+---
+`Iterator`	An object representing a stream of data that can yield successive values.
+---
+`Keyword Argument`	An argument that is supplied to a function call by keyword, not by position.
+---
+`Keyword-Only` Parameters	A subcategory of optional parameters defined by a function signature that can only be overridden by an argument supplied by keyword.
+---
+`lambda`	An anonymous function used to define simple callables.
+---
+`locals()`	A Python builtin function call that returns a dictionary representation of the local namespace.
 map	A built-in function that applies a function to every element of an iterable.
 Name Resolution	The process by which Python determines the value associated with a name, by searching outwards through nested namespaces.
 The operator module	A built-in module that provides standard operators as functions.
