@@ -64,8 +64,16 @@ class NearEarthObject:
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        
-        return f"A NearEarthObject ..."
+        # Use fullname property to generate full name 
+        # check if diameter will be included in the text or not
+        hazardous_state = "is" if self.hazardous else "is not"
+        if self.diameter != float('nan'):
+            return f"NearEarthObject {self.fullname} has a diameter of \
+                {self.diameter:.3f} km and {hazardous_state} hazardous."
+        else :
+
+            return f"NearEarthObject {self.fullname}, {hazardous_state} hazardous."
+
 
 
     def __repr__(self):
@@ -98,7 +106,7 @@ class CloseApproach:
         # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
-        self._designation = ''
+        self._designation = info.get
         self.time = None  # TODO: Use the cd_to_datetime function for this attribute.
         self.distance = 0.0
         self.velocity = 0.0
