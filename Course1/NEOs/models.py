@@ -17,6 +17,7 @@ quirks of the data set, such as missing names and unknown diameters.
 
 You'll edit this file in Task 1.
 """
+import math
 import datetime
 from helpers import cd_to_datetime, datetime_to_str
 
@@ -47,8 +48,10 @@ class NearEarthObject:
         # and a missing diameter being represented by `float('nan')`.
         self.designation = info.get("pdes") 
         self.name = info.get('name' , None)
-        self.diameter = info.get('diameter', float('nan'))
-        self.hazardous = info.get('pha')
+        self.diameter = info.get("diameter",None)
+        if not self.diameter:
+            self.diameter = float("nan")
+        self.hazardous = info.get('pha')      
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []
@@ -68,7 +71,7 @@ class NearEarthObject:
         # Use fullname property to generate full name 
         # check if diameter will be included in the text or not
         hazardous_state = "is" if self.hazardous else "is not"
-        if self.diameter != float('nan'):
+        if not math.isnan(self.diameter):
             return f"NearEarthObject {self.fullname} has a diameter of \
                 {self.diameter:.3f} km and {hazardous_state} hazardous."
         else :
@@ -142,7 +145,7 @@ class CloseApproach:
         # build a formatted representation of the approach time.
         # TODO: Use self.designation and self.name to build a fullname for this object.
         if self.time: 
-            return f'The Time for {self._designation} : ({self.neo.fullname}) to approche earth is {datetime_to_str(self.time}) '
+            return f'The Time for {self._designation} : ({self.neo.fullname}) to approche earth is {datetime_to_str(self.time)}'
         
 
     def __str__(self):

@@ -40,11 +40,32 @@ class NEODatabase:
         :param approaches: A collection of `CloseApproach`es.
         """
         self._neos = neos
+
+
+
         self._approaches = approaches
 
         # TODO: What additional auxiliary data structures will be useful?
-
+        ## we need dict contains the unique designation of each neo 
+        # NOTE : neos object from NearEarthObject Class
+        self._des_neo = {neo.designation : neo for neo in neos}
+        self._name_to_des = {neo.name: neo.designation for neo in neos}
+        
         # TODO: Link together the NEOs and their close approaches.
+        # create dict object containes approach designation as key for search (designation -> list of all approches )
+        self._des_approachs = {} 
+        for approach in approaches : 
+            #Assign the neo of the apporach 
+            approach.neo = self._des_neo[approach._designation]
+
+            if self._des_approachs.get(approach._designation , None): 
+                #That mean the key exists before so let's append 
+                self._des_approachs[approach._designation].append(approach)
+            else : 
+                #That mean key not created yet 
+                self._des_approachs[approach._designation] = [approach]
+            self._des_neo[approach._designation].approaches.append(approach)
+
 
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
@@ -60,7 +81,8 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
         # TODO: Fetch an NEO by its primary designation.
-        return None
+        # handle case that user enter lower case letters
+        return  self._des_neo.get(designation.upper(), None)
 
     def get_neo_by_name(self, name):
         """Find and return an NEO by its name.
@@ -77,7 +99,11 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
         # TODO: Fetch an NEO by its name.
-        return None
+        designation = self._name_to_des.get(name.capitalize(), None)
+        if designation:
+            return self.get_neo_by_designation(designation)
+        else : 
+            return None
 
     def query(self, filters=()):
         """Query close approaches to generate those that match a collection of filters.
@@ -94,5 +120,56 @@ class NEODatabase:
         :return: A stream of matching `CloseApproach` objects.
         """
         # TODO: Generate `CloseApproach` objects that match all of the filters.
-        for approach in self._approaches:
-            yield approach
+        date_filters = ["date", "start_date", "end_date"]
+        no_date = all([f for f in filters.keys() if f not in date_filters])
+
+        for approach in self.approaches:
+            passed_dates = True
+            if no_date and all((map(lambda x: x(approach), filters.values()))):
+                yield approach
+            elif not no_date:
+                if "date" in filters:
+                    passed_dates = filters["date"](approach)
+                    if passed_dates and all(
+                        (
+                            map(
+                                lambda x: x(approach),
+                                [
+                                    f
+                                    for name, f in filters.items()
+                                    if name not in date_filters
+                                ],
+                            )
+                        )
+                    ):  # passed the exact date and all the non-date related filters
+                        yield approach
+                    elif not passed_dates:
+                        # should be between start and end date
+                        passed_dates = all(
+                            (
+                                map(
+                                    lambda x: x(approach),
+                                    [
+                                        f
+                                        for name, f in filters.items()
+                                        if name in ["start_date", "end_date"]
+                                    ],
+                                )
+                            )
+                        )
+                        if passed_dates and all(
+                            (
+                                map(
+                                    lambda x: x(approach),
+                                    [
+                                        f
+                                        for name, f in filters.items()
+                                        if name not in date_filters
+                                    ],
+                                )
+                            )
+                        ):
+                            yield approach
+                else:
+                    if all((map(lambda x: x(approach), filters.values()))):
+                        yield approach
