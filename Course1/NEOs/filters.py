@@ -78,7 +78,7 @@ class AttributeFilter:
 class Filter_By_Date(AttributeFilter):
     @classmethod
     def get(cls , approach):
-        return approach.time
+        return approach.time.date()
 
 
 class Filter_By_Distance(AttributeFilter): 

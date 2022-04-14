@@ -120,56 +120,10 @@ class NEODatabase:
         :return: A stream of matching `CloseApproach` objects.
         """
         # TODO: Generate `CloseApproach` objects that match all of the filters.
-        date_filters = ["date", "start_date", "end_date"]
-        no_date = all([f for f in filters.keys() if f not in date_filters])
-
-        for approach in self._approaches:
-            passed_dates = True
-            if no_date and all((map(lambda x: x(approach), filters.values()))):
-                yield approach
-            elif not no_date:
-                if "date" in filters:
-                    passed_dates = filters["date"](approach)
-                    if passed_dates and all(
-                        (
-                            map(
-                                lambda x: x(approach),
-                                [
-                                    f
-                                    for name, f in filters.items()
-                                    if name not in date_filters
-                                ],
-                            )
-                        )
-                    ):  # passed the exact date and all the non-date related filters
-                        yield approach
-                    elif not passed_dates:
-                        # should be between start and end date
-                        passed_dates = all(
-                            (
-                                map(
-                                    lambda x: x(approach),
-                                    [
-                                        f
-                                        for name, f in filters.items()
-                                        if name in ["start_date", "end_date"]
-                                    ],
-                                )
-                            )
-                        )
-                        if passed_dates and all(
-                            (
-                                map(
-                                    lambda x: x(approach),
-                                    [
-                                        f
-                                        for name, f in filters.items()
-                                        if name not in date_filters
-                                    ],
-                                )
-                            )
-                        ):
-                            yield approach
-                else:
-                    if all((map(lambda x: x(approach), filters.values()))):
-                        yield approach
+        for approach in self._approaches : 
+            f_out= []
+            for k,f in filters.items(): 
+                f_out.append(f(approach))
+            if all(f_out) : 
+                yield approach        
+       
