@@ -145,7 +145,8 @@ class CloseApproach:
         # build a formatted representation of the approach time.
         # TODO: Use self.designation and self.name to build a fullname for this object.
         if self.time: 
-            return f'The Time for {self._designation} : ({self.neo.fullname}) to approche earth is {datetime_to_str(self.time)}'
+            # return f'The Time for {self._designation} : ({self.neo.fullname}) to approche earth is {datetime_to_str(self.time)}'
+            return f" At {datetime_to_str(self.time)} the {self._designation} : ({self.neo.fullname}) had approach the earth"
         
 
     def __str__(self):

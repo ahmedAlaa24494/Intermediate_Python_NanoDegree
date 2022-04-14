@@ -123,7 +123,7 @@ class NEODatabase:
         date_filters = ["date", "start_date", "end_date"]
         no_date = all([f for f in filters.keys() if f not in date_filters])
 
-        for approach in self.approaches:
+        for approach in self._approaches:
             passed_dates = True
             if no_date and all((map(lambda x: x(approach), filters.values()))):
                 yield approach

@@ -21,6 +21,7 @@ import operator
 
 class UnsupportedCriterionError(NotImplementedError):
     """A filter criterion is unsupported."""
+    
 
 
 class AttributeFilter:
@@ -72,6 +73,39 @@ class AttributeFilter:
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
 
+############# Concrete subclasses to handle filter processes required #############
+
+class Filter_By_Date(AttributeFilter):
+    @classmethod
+    def get(cls , approach):
+        return approach.time
+
+
+class Filter_By_Distance(AttributeFilter): 
+
+    @classmethod
+    def get(cls, approach): 
+        return approach.distance
+
+
+class Filter_By_Velocity(AttributeFilter): 
+    @classmethod
+    def get(cls , approach): 
+        return approach.velocity
+
+
+class Filter_By_Diameter(AttributeFilter): 
+    @classmethod 
+    def get(cls, approach): 
+        return approach.neo.diameter
+
+class Filter_By_Hazardous(AttributeFilter):
+    @classmethod 
+    def get(cls, approach):
+        return approach.neo.hazardous
+    
+
+
 def create_filters(
         date=None, start_date=None, end_date=None,
         distance_min=None, distance_max=None,
@@ -108,8 +142,31 @@ def create_filters(
     :param hazardous: Whether the NEO of a matching `CloseApproach` is potentially hazardous.
     :return: A collection of filters for use with `query`.
     """
+
     # TODO: Decide how you will represent your filters.
-    return ()
+    filters = {}
+    if date:
+        filters["date"] = Filter_By_Date(operator.eq, date)
+    if start_date:
+        filters["start_date"] = Filter_By_Date(operator.ge, start_date)
+    if end_date:
+        filters["end_date"] = Filter_By_Date(operator.le, end_date)
+    if distance_min:
+        filters["distance_min"] = Filter_By_Distance(operator.ge, distance_min)
+    if distance_max:
+        filters["distance_max"] = Filter_By_Distance(operator.le, distance_max)
+    if velocity_min:
+        filters["velocity_min"] = Filter_By_Velocity(operator.ge, velocity_min)
+    if velocity_max:
+        filters["velocity_max"] = Filter_By_Velocity(operator.le, velocity_max)
+    if diameter_min:
+        filters["diameter_min"] = Filter_By_Diameter(operator.ge, diameter_min)
+    if diameter_max:
+        filters["diameter_max"] = Filter_By_Diameter(operator.le, diameter_max)
+    if hazardous is not None:
+        filters["hazardous"] = Filter_By_Hazardous(operator.eq, hazardous)
+
+    return filters
 
 
 def limit(iterator, n=None):
@@ -122,4 +179,13 @@ def limit(iterator, n=None):
     :yield: The first (at most) `n` values from the iterator.
     """
     # TODO: Produce at most `n` values from the given iterator.
-    return iterator
+    if n == 0 or n == None :
+
+        return iterator
+    else : 
+        l = []
+        for i,iter in enumerate(iterator): 
+            if i == n:
+                break
+            l.append(iter)
+        return l 
