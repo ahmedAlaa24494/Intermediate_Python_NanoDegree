@@ -56,6 +56,15 @@ class NearEarthObject:
         # Create an empty initial collection of linked approaches.
         self.approaches = []
 
+
+    def get_dict(self): 
+        return {   
+            "designation": self.designation,
+            "name": self.fullname ,
+            "diameter_km": self.diameter , 
+            "potentially_hazardous": self.hazardous
+        }
+
     @property
     def fullname(self):
         """Return a representation of the full name of this NEO."""
@@ -77,7 +86,6 @@ class NearEarthObject:
         else :
 
             return f"NearEarthObject {self.fullname}, {hazardous_state} hazardous."
-
 
 
     def __repr__(self):
@@ -127,6 +135,17 @@ class CloseApproach:
    
         # Create an attribute for the referenced NEO, originally None.
         self.neo = info.get("neo", None)
+
+    def get_dict(self): 
+
+        return {
+            "datetime_utc": datetime_to_str(self.time),
+            "distance_au": self.distance,
+            "velocity_km_s": self.velocity,
+
+        }
+
+
     @property
     def time_str(self):
         """Return a formatted representation of this `CloseApproach`'s approach time.
@@ -144,6 +163,8 @@ class CloseApproach:
         # TODO: Use this object's `.time` attribute and the `datetime_to_str` function to
         # build a formatted representation of the approach time.
         # TODO: Use self.designation and self.name to build a fullname for this object.
+
+
         if self.time: 
             # return f'The Time for {self._designation} : ({self.neo.fullname}) to approche earth is {datetime_to_str(self.time)}'
             return f" At {datetime_to_str(self.time)} the {self._designation} : ({self.neo.fullname}) had approach the earth"
