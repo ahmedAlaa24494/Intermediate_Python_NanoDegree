@@ -17,8 +17,6 @@ quirks of the data set, such as missing names and unknown diameters.
 
 You'll edit this file in Task 1.
 """
-import math
-import datetime
 from helpers import cd_to_datetime, datetime_to_str
 
 
@@ -46,47 +44,34 @@ class NearEarthObject:
         # You should coerce these values to their appropriate data type and
         # handle any edge cases, such as a empty name being represented by `None`
         # and a missing diameter being represented by `float('nan')`.
-        self.designation = info.get("pdes") 
-        self.name = info.get('name' , None)
-        self.diameter = info.get("diameter",None)
-        if not self.diameter:
-            self.diameter = float("nan")
-        self.hazardous = info.get('pha')      
+        self.designation = info.get("pdes") #pdes - the primary designation of the NEO. This is a unique identifier in the database, and its "name" to computer systems.
+        self.name = info.get("name" , None) # name - the International Astronomical Union (IAU) name of the NEO. This is its "name" to humans.
+
+        self.diameter = info.get("diameter" , float("nan")) #diameter - the NEO's diameter (from an equivalent sphere) in kilometers.
+        self.hazardous = info.get("pha") # pha - whether NASA has marked the NEO as a "Potentially Hazardous Asteroid," roughly meaning that it's large and can come quite close to Earth.
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []
-
-
-    def get_dict(self): 
-        return {   
-            "designation": self.designation,
-            "name": self.fullname ,
-            "diameter_km": self.diameter , 
-            "potentially_hazardous": self.hazardous
-        }
 
     @property
     def fullname(self):
         """Return a representation of the full name of this NEO."""
         # TODO: Use self.designation and self.name to build a fullname for this object.
-        full_name = f"{self.designation} : {self.name} " if self.name else self.designation  
-        return full_name 
+        fullname =  f"{self.designation} ({self.name})" if self.name else self.designation
+        return fullname
 
     def __str__(self):
         """Return `str(self)`."""
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        # Use fullname property to generate full name 
-        # check if diameter will be included in the text or not
-        hazardous_state = "is" if self.hazardous else "is not"
-        if not math.isnan(self.diameter):
-            return f"NearEarthObject {self.fullname} has a diameter of \
-                {self.diameter:.3f} km and {hazardous_state} hazardous."
-        else :
 
-            return f"NearEarthObject {self.fullname}, {hazardous_state} hazardous."
+        hazardous_state = "is" if self.hazadous else "is not"
+        if self.diameter: 
+            return  
+        f"NEO {self.fullname} has a diameter of {diameter:.3f} km and [is/is not] potentially hazardous."
 
+        return f"A NearEarthObject ..."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
@@ -118,33 +103,13 @@ class CloseApproach:
         # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
-        self._designation = info.get("des", None)
-        self.time = info.get("cd", None)
-        # TODO: Use the cd_to_datetime function for this attribute.
+        self._designation = ''
+        self.time = None  # TODO: Use the cd_to_datetime function for this attribute.
+        self.distance = 0.0
+        self.velocity = 0.0
 
-        if self.time: 
-            self.time = cd_to_datetime(self.time)
-            assert isinstance(self.time , datetime.datetime) , "The Time format is wrong!!"
-        self.distance = info.get("dist",0.0)
-        assert isinstance(self.distance , float), "The distance datatype must be float"
-        self.velocity = info.get("v_rel", 0.0)
-        assert isinstance(self.velocity , float), "The velocity datatype must be float"
-
-
-
-   
         # Create an attribute for the referenced NEO, originally None.
-        self.neo = info.get("neo", None)
-
-    def get_dict(self): 
-
-        return {
-            "datetime_utc": datetime_to_str(self.time),
-            "distance_au": self.distance,
-            "velocity_km_s": self.velocity,
-
-        }
-
+        self.neo = None
 
     @property
     def time_str(self):
@@ -159,24 +124,18 @@ class CloseApproach:
         formatted string that can be used in human-readable representations and
         in serialization to CSV and JSON files.
         """
-            
         # TODO: Use this object's `.time` attribute and the `datetime_to_str` function to
         # build a formatted representation of the approach time.
         # TODO: Use self.designation and self.name to build a fullname for this object.
-
-
-        if self.time: 
-            # return f'The Time for {self._designation} : ({self.neo.fullname}) to approche earth is {datetime_to_str(self.time)}'
-            return f" At {datetime_to_str(self.time)} the {self._designation} : ({self.neo.fullname}) had approach the earth"
-        
+        return ''
 
     def __str__(self):
         """Return `str(self)`."""
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        return f"{self.time_str} at a destance of {self.distance:0.2f} with valocity of {self.velocity:.2f}   "
-    
+        return f"A CloseApproach ..."
+
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, " \
