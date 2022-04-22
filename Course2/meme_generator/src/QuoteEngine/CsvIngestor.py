@@ -1,15 +1,15 @@
 from typing import List
 import pandas as pd 
 from .QuoteModel import QuoteModel 
-from .IngestorInterface import Ingesterinterface
+from .IngestorInterface import IngestorInterface
 
 
 
-class CsvIngestor(Ingesterinterface):
+class CsvIngestor(IngestorInterface):
     allowed_extensions = ['csv']
 
     @classmethod
-    def parser(cls, path:str) -> List[QuoteModel]: 
+    def parse(cls, path:str) -> List[QuoteModel]: 
         """Parse content of csv file to return list of quotes
         
         Arguments : 
@@ -26,7 +26,8 @@ class CsvIngestor(Ingesterinterface):
         df = pd.read_csv(path , header=0)
 
         for i, row in df.iterrows()  :
-            new_quote = QuoteModel(body = row['body'] , auther = row['auther'])
+
+            new_quote = QuoteModel(body = row['body'] , author = row['author'])
             quotes.append(new_quote)
         return quotes 
 

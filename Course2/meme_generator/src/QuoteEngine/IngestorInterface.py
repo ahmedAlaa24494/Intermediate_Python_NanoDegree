@@ -4,7 +4,7 @@ from typing import List
 from .QuoteModel import QuoteModel 
 
 
-class Ingesterinterface(ABC):
+class IngestorInterface(ABC):
     """Interface class to be inherted from all ingesters classes"""
     allowed_extensions = []
 

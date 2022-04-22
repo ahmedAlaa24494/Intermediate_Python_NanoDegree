@@ -4,7 +4,7 @@ import os
 import random
 from .IngestorInterface import IngestorInterface
 from .QuoteModel import QuoteModel
-from beartype import beartype
+
 
 
 class PdfIngestor(IngestorInterface):
@@ -32,7 +32,7 @@ class PdfIngestor(IngestorInterface):
         #run sub process comand line to use pdftotext API 
         try :
 
-            read_pdf = subprocess.call(["pdftotext", path, tmp])
+            read_pdf = subprocess.call(["pdftotext","-raw", path, tmp])
         
         except : 
             raise Exception ("Something went wrong with pdftotext api !!!") 
