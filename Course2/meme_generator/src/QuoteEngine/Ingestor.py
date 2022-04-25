@@ -1,15 +1,16 @@
+"""Fetch and Ingest quotes from file according the file format."""
 from typing import List
 
-
-from .QuoteModel import QuoteModel 
+from .QuoteModel import QuoteModel
 from .IngestorInterface import IngestorInterface
-from .CsvIngestor import CsvIngestor 
-from .PdfIngestor import PdfIngestor 
-from .DocxIngestor import DocxIngestor 
-from .TxtIngestor import TxtIngestor 
+from .CsvIngestor import CsvIngestor
+from .PdfIngestor import PdfIngestor
+from .DocxIngestor import DocxIngestor
+from .TxtIngestor import TxtIngestor
+
 
 class Ingestor(IngestorInterface):
-    """Chcek type of file using the abstract method can_ingest the perform parser using matching format ingestor"""
+    """Check type of file using the class method (can_ingest)."""
 
     ingestors = [CsvIngestor, PdfIngestor, DocxIngestor, TxtIngestor]
 

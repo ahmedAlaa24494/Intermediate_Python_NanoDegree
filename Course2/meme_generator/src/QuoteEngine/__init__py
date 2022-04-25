@@ -1,6 +1,8 @@
-from .QuoteModel import QuoteModel 
+"""Init for Quote Engine Modules."""
+
+from .QuoteModel import QuoteModel
 from .IngestorInterface import IngestorInterface
-from .CsvIngestor import CSVIngestor 
-from .PdfIngestor import PDFIngestor 
-from .DocxIngestor import DocsIngestor 
-from .TxtIngestor import TxtIngestor 
+from .CsvIngestor import CSVIngestor
+from .PdfIngestor import PDFIngestor
+from .DocxIngestor import DocsIngestor
+from .TxtIngestor import TxtIngestor

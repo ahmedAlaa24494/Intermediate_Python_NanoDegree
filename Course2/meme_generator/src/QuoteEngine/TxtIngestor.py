@@ -1,10 +1,11 @@
+"""Txt file reader and ingester Module."""
 from typing import List
 from .IngestorInterface import IngestorInterface
 from .QuoteModel import QuoteModel
 
 
 class TxtIngestor(IngestorInterface):
-    """Ingest quots from a txt file"""
+    """Ingest quots from a txt file."""
 
     allowed_extensions = ["txt"]
 

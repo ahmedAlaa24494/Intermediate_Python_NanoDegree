@@ -1,3 +1,4 @@
+"""Docx reader and ingester Module."""
 from typing import List
 import docx
 
@@ -6,7 +7,7 @@ from .QuoteModel import QuoteModel
 
 
 class DocxIngestor(IngestorInterface):
-    """Ingests quotes from docx file"""
+    """Ingests quotes from docx file."""
 
     allowed_extensions = ["docx"]
 
@@ -17,7 +18,6 @@ class DocxIngestor(IngestorInterface):
         Arguments:
             path (str): Path to file.
         """
-
         if not cls.can_ingest(path):
             raise Exception("cannot ingest exception")
 
@@ -27,7 +27,7 @@ class DocxIngestor(IngestorInterface):
         for line in doc.paragraphs:
             if line.text != "":
                 body, author = line.text.split(" - ")
-                
+
                 quotes.append(QuoteModel(body, author))
 
         return quotes

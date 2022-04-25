@@ -1,0 +1,7 @@
+**/venv/
+**/.vscode/
+src/tmp/
+.vscode/
+src/.vscode/
+src/static/
+

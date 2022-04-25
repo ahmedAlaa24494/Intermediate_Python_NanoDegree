@@ -21,7 +21,6 @@ import operator
 
 class UnsupportedCriterionError(NotImplementedError):
     """A filter criterion is unsupported."""
-    
 
 
 class AttributeFilter:
@@ -39,6 +38,7 @@ class AttributeFilter:
     Concrete subclasses can override the `get` classmethod to provide custom
     behavior to fetch a desired attribute from the given `CloseApproach`.
     """
+
     def __init__(self, op, value):
         """Construct a new `AttributeFilter` from an binary predicate and a reference value.
 
@@ -73,37 +73,37 @@ class AttributeFilter:
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
 
-############# Concrete subclasses to handle filter processes required #############
+############# Concrete subclasses to handle filter processes required ####
 
 class Filter_By_Date(AttributeFilter):
     @classmethod
-    def get(cls , approach):
+    def get(cls, approach):
         return approach.time.date()
 
 
-class Filter_By_Distance(AttributeFilter): 
+class Filter_By_Distance(AttributeFilter):
 
     @classmethod
-    def get(cls, approach): 
+    def get(cls, approach):
         return approach.distance
 
 
-class Filter_By_Velocity(AttributeFilter): 
+class Filter_By_Velocity(AttributeFilter):
     @classmethod
-    def get(cls , approach): 
+    def get(cls, approach):
         return approach.velocity
 
 
-class Filter_By_Diameter(AttributeFilter): 
-    @classmethod 
-    def get(cls, approach): 
+class Filter_By_Diameter(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
         return approach.neo.diameter
 
+
 class Filter_By_Hazardous(AttributeFilter):
-    @classmethod 
+    @classmethod
     def get(cls, approach):
         return approach.neo.hazardous
-    
 
 
 def create_filters(
@@ -143,7 +143,6 @@ def create_filters(
     :return: A collection of filters for use with `query`.
     """
 
-    # TODO: Decide how you will represent your filters.
     filters = {}
     if date:
         filters["date"] = Filter_By_Date(operator.eq, date)
@@ -178,14 +177,11 @@ def limit(iterator, n=None):
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-    # TODO: Produce at most `n` values from the given iterator.
-    if n == 0 or n == None :
+    if n == 0 or n is None:
 
         return iterator
-    else : 
-        l = []
-        for i,iter in enumerate(iterator): 
+    else:
+        for i, iteration in enumerate(iterator):
             if i == n:
                 break
-            l.append(iter)
-        return l 
+            yield iteration

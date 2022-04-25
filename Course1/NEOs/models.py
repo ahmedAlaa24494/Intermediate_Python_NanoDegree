@@ -34,6 +34,7 @@ class NearEarthObject:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
+
     def __init__(self, **info):
         """Create a new `NearEarthObject`.
 
@@ -44,11 +45,20 @@ class NearEarthObject:
         # You should coerce these values to their appropriate data type and
         # handle any edge cases, such as a empty name being represented by `None`
         # and a missing diameter being represented by `float('nan')`.
-        self.designation = info.get("pdes") #pdes - the primary designation of the NEO. This is a unique identifier in the database, and its "name" to computer systems.
-        self.name = info.get("name" , None) # name - the International Astronomical Union (IAU) name of the NEO. This is its "name" to humans.
+        # pdes - the primary designation of the NEO. This is a unique
+        # identifier in the database, and its "name" to computer systems.
+        self.designation = info.get("pdes")
+        # name - the International Astronomical Union (IAU) name of the NEO.
+        # This is its "name" to humans.
+        self.name = info.get("name", None)
 
-        self.diameter = info.get("diameter" , float("nan")) #diameter - the NEO's diameter (from an equivalent sphere) in kilometers.
-        self.hazardous = info.get("pha") # pha - whether NASA has marked the NEO as a "Potentially Hazardous Asteroid," roughly meaning that it's large and can come quite close to Earth.
+        # diameter - the NEO's diameter (from an equivalent sphere) in
+        # kilometers.
+        self.diameter = info.get("diameter", float("nan"))
+        # pha - whether NASA has marked the NEO as a "Potentially Hazardous
+        # Asteroid," roughly meaning that it's large and can come quite close
+        # to Earth.
+        self.hazardous = info.get("pha")
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []
@@ -56,8 +66,9 @@ class NearEarthObject:
     @property
     def fullname(self):
         """Return a representation of the full name of this NEO."""
-        # TODO: Use self.designation and self.name to build a fullname for this object.
-        fullname =  f"{self.designation} ({self.name})" if self.name else self.designation
+        # TODO: Use self.designation and self.name to build a fullname for this
+        # object.
+        fullname = f"{self.designation} ({self.name})" if self.name else self.designation
         return fullname
 
     def __str__(self):
@@ -67,8 +78,8 @@ class NearEarthObject:
         # method for examples of advanced string formatting.
 
         hazardous_state = "is" if self.hazadous else "is not"
-        if self.diameter: 
-            return  
+        if self.diameter:
+            return
         f"NEO {self.fullname} has a diameter of {diameter:.3f} km and [is/is not] potentially hazardous."
 
         return f"A NearEarthObject ..."
@@ -94,6 +105,7 @@ class CloseApproach:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
+
     def __init__(self, **info):
         """Create a new `CloseApproach`.
 
@@ -104,7 +116,8 @@ class CloseApproach:
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
         self._designation = ''
-        self.time = None  # TODO: Use the cd_to_datetime function for this attribute.
+        # TODO: Use the cd_to_datetime function for this attribute.
+        self.time = None
         self.distance = 0.0
         self.velocity = 0.0
 
@@ -126,7 +139,8 @@ class CloseApproach:
         """
         # TODO: Use this object's `.time` attribute and the `datetime_to_str` function to
         # build a formatted representation of the approach time.
-        # TODO: Use self.designation and self.name to build a fullname for this object.
+        # TODO: Use self.designation and self.name to build a fullname for this
+        # object.
         return ''
 
     def __str__(self):

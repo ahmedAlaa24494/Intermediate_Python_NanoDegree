@@ -29,7 +29,7 @@ def load_neos(neo_csv_path):
     with open(neo_csv_path, "r") as f:
         reader = csv.DictReader(f)
 
-        #Create list off all needed columns in neo dataset
+        # Create list off all needed columns in neo dataset
         neos = []
         for line in reader:
             # diameter not always available
@@ -69,7 +69,8 @@ def load_approaches(cad_json_path):
     # TODO: Load close approach data from the given JSON file.
     with open(cad_json_path, "r") as f:
         dataset = json.load(f)
-        dataset = [dict(zip(dataset["fields"], data)) for data in dataset["data"]]
+        dataset = [dict(zip(dataset["fields"], data))
+                   for data in dataset["data"]]
 
         close_approaches = []
         for line in dataset:
